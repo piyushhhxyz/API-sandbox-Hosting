@@ -28,7 +28,7 @@ app.use('/github-wrapped/api/v1/top-languages/:username', async (req, res) => {
   }
 })
 
-app.use('/github-wrapped/api/v1/top-languages/:username', async (req, res) => {
+app.use('/github-wrapped/api/v1/github-stats/:username', async (req, res) => {
   try {
     const { username } = req.params;
     const response = await axios.get(`https://github-readme-stats.vercel.app/api?username=${username}&theme=nightowl&hide_border=false&include_all_commits=true&count_private=false`);
