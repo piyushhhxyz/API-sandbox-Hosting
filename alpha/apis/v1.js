@@ -5,8 +5,8 @@ const testing = require('../routes/test');
 
 const router = express.Router();
 
-router.use('/top-languages', topLanguagesRouter);
-router.use('/github-stats', githubStatsRouter);
-router.use('/test', testing);
+// router.use('/top-languages', topLanguagesRouter);
+// router.use('/github-stats', githubStatsRouter);
+router.use('/testpb', res.json({ message: 'Hola Amigo' }));
 
 module.exports = router;
