@@ -24,7 +24,7 @@ app.use('/github-wrapped/api/v1/top-languages/:username', async (req, res) => {
     const matches = [...svgData.matchAll(langRegExp)];
     const languages = matches.map(match => match[1].trim());
 
-    res.json({ data: languages }); // Sending data in the form of an array
+    res.json({ data: languages.map(language => ({ name: language })) });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -45,19 +45,19 @@ app.use('/github-wrapped/api/v1/github-stats/:username', async (req, res) => {
     const contribs = $('text:contains("Contributed to (last year):") + text').text().trim();
 
     res.json({
-      data: [
-        { label: 'Total Stars Earned', value: stars },
-        { label: 'Total Commits', value: commits },
-        { label: 'Total PRs', value: prs },
-        { label: 'Total Issues', value: issues },
-        { label: 'Contributions 2023', value: contribs },
-      ],
+      totalStars: stars,
+      totalCommits: commits,
+      totalPRs: prs,
+      totalIssues: issues,
+      contributions2023: contribs,
     });
+    
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
 
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
-});
+})
