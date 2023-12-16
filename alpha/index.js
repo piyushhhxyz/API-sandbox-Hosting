@@ -53,11 +53,68 @@ app.use('/github-wrapped/api/v1/github-stats/:username', async (req, res) => {
     });
     
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Bhosde Khul Gaye Server ka XD' });
+  }
+})
+// const githubUsername = 'hkirat';
+
+
+
+app.use('/github-wrapped/api/Praash_Babie_Ke_Lie/githubKiTopReposLeloJii/:username', async (req, res) => {
+  try {
+    const { username } = req.params;
+    const githubActivityUrl = `https://github.com/${username}`;
+    const response = await axios.get(githubActivityUrl);
+    const html = response.data;
+    const $ = cheerio.load(html);
+
+    const topLanguages = [];
+    $('.lang').each((index, element) => {
+      topLanguages.push($(element).text().trim());
+    });
+
+    const topRepos = [];
+    $('.repo').each((index, element) => {
+      topRepos.push($(element).text().trim());
+    });
+    console.log('Top Repositories:', topRepos);
+    res.json({Top_Repositories: topRepos});
+
+  } catch (error) {
+    res.status(500).json({ error: 'Bhosde Khul Gaye Server ka XD' });
   }
 })
 
 
+// async function scrapeGitHubData() {
+//   try {
+//     const response = await axios.get(githubActivityUrl);
+//     const html = response.data;
+//     const $ = cheerio.load(html);
+
+//     const topLanguages = [];
+//     $('.lang').each((index, element) => {
+//       topLanguages.push($(element).text().trim());
+//     });
+
+//     const topRepos = [];
+//     $('.repo').each((index, element) => {
+//       topRepos.push($(element).text().trim());
+//     });
+
+//     const commitFrequency = $('.day').length;
+
+//     const totalCommits = $('.commits span').first().text().trim();
+
+//     console.log('Top Repositories:', topRepos);
+//   } catch (error) {
+//     console.error('Bhosde Khul Gaye Server ka XD:', error.message);
+//   }
+// }
+// scrapeGitHubData();
+
+app.use('/', async (req, res) => res.send('ZETA KA SERVER JO SABKE BHOSDE KHOL DEE DING DING DING!!!'))
+
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`ZETA KA SERVER is running at http://localhost:${port}`);
 })
